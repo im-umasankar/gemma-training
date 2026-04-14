@@ -1,0 +1,19 @@
+# Virtual environment
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment variables
+.env
+*.env
+
+# Model outputs
+trained-model/
+/tmp/
+
+# IDE
+.idea/
+.vscode/
