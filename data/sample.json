@@ -1,0 +1,14 @@
+[
+  {
+    "prompt": "What is the capital of France?",
+    "response": "The capital of France is Paris."
+  },
+  {
+    "prompt": "Explain Newton's first law of motion.",
+    "response": "Newton's first law states that an object at rest stays at rest, and an object in motion stays in motion at the same speed and direction, unless acted upon by an external force."
+  },
+  {
+    "prompt": "Write a Python function to reverse a string.",
+    "response": "def reverse_string(s: str) -> str:\n    return s[::-1]"
+  }
+]

@@ -1,10 +1,16 @@
-torch==2.3.0
-transformers==4.44.0
-datasets==2.21.0
-peft==0.12.0
-trl==0.10.1
-bitsandbytes==0.43.3
-accelerate==0.33.0
-sentencepiece==0.2.0
-protobuf==5.27.3
-google-cloud-storage==2.18.2
+# JAX with CUDA 12 support
+jax[cuda12_pip]
+
+# Gemma JAX library (google-deepmind/gemma)
+gemma @ git+https://github.com/google-deepmind/gemma.git
+
+# Kauldron training framework
+kauldron
+
+# Supporting libs (pulled in by kauldron/gemma, pinned for stability)
+grain
+optax
+orbax-checkpoint
+flax
+tensorflow-datasets
+etils[epath,epy]
