@@ -1,8 +1,11 @@
 # JAX with CUDA 12 support
 jax[cuda12_pip]
 
-# Gemma JAX library (google-deepmind/gemma) — pinned to v3.2.1 (v3.3.0 requires unreleased dialog.Format)
-gemma @ git+https://github.com/google-deepmind/gemma.git@v3.2.1
+# Gemma JAX library — HEAD required for Gemma 4 support
+gemma @ git+https://github.com/google-deepmind/gemma.git
+
+# dialog HEAD required — released v1.0.0 is missing dialog.Format used by gemma HEAD
+dialog @ git+https://github.com/google-deepmind/dialog.git
 
 # Kauldron training framework
 kauldron
