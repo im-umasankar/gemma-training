@@ -38,45 +38,15 @@ Train on Vertex AI (via submit_job.py):
 
 from __future__ import annotations
 
-import dataclasses
-from typing import Any
-
 from kauldron import konfig
 
+# FinQAFormat and gemma/kd/optax are all imported inside konfig.imports()
+# so Kauldron treats them as konfig-registered configurables.
 with konfig.imports():
   from gemma import gm
   from kauldron import kd
   import optax
-
-
-# ---------------------------------------------------------------------------
-# Data preprocessing transform
-# ---------------------------------------------------------------------------
-
-@dataclasses.dataclass(frozen=True)
-class FinQAFormat(kd.data.py.ElementWiseTransform):
-  """Formats FinQA dataset fields into prompt/response pairs.
-
-  Input fields (from TheFinAI/Fino1_Reasoning_Path_FinQA):
-    - "Open-ended Verifiable Question"
-    - "Complex_CoT"
-    - "Response"
-
-  Output fields:
-    - "prompt":   question + chain-of-thought
-    - "response": answer
-  """
-
-  def map_element(self, element: dict[str, Any]) -> dict[str, Any]:
-    question = element.get("Open-ended Verifiable Question", "")
-    cot = element.get("Complex_CoT", "")
-    response = element.get("Response", "")
-
-    prompt = (
-        f"Question: {question}\n\n"
-        f"Think step by step:\n{cot}"
-    )
-    return {"prompt": prompt, "response": response}
+  import finqa_transform  # registers FinQAFormat with the konfig system
 
 
 # ---------------------------------------------------------------------------
@@ -160,7 +130,7 @@ def _make_dataset(
       num_workers=4,
       transforms=[
           # Step 1: format raw dataset fields into prompt/response
-          FinQAFormat(),
+          finqa_transform.FinQAFormat(),
           # Step 2: tokenize and create loss mask (only response tokens)
           gm.data.Seq2SeqTask(
               in_prompt="prompt",
