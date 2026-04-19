@@ -98,8 +98,8 @@ def _make_dataset(
 ):
   tokenizer = gm.text.Gemma3Tokenizer()
 
-  return kd.data.py.DataSource(
-      data_source=kd.data.py.JsonDataSource(path=path),
+  return kd.data.py.Json(
+      path=path,
       shuffle=training,
       num_epochs=None if training else 1,
       batch_size=None if sampling else batch_size,
